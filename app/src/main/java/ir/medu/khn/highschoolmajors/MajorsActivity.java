@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -24,10 +28,35 @@ public class MajorsActivity extends AppCompatActivity {
         getIntentFromFields();
         //Define view objects
         defineObjects();
+        //Draw Menu
+
         makeList();
         buildRecyclerView();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater majorsMenuInflator = getMenuInflater();
+        majorsMenuInflator.inflate(R.menu.majors_menu,menu);
+
+        MenuItem search_MnuItem = menu.findItem(R.id.search_MajorsMnuItm);
+        SearchView searchView = (SearchView) search_MnuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String queryText) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String queryText) {
+                mMajorsRcVw_Adapter.getFilter().filter(queryText);
+                return false;
+            }
+        });
+        return true;
+    }
+
 
     private void getIntentFromFields() {
         Intent intent = getIntent();
@@ -56,16 +85,16 @@ public class MajorsActivity extends AppCompatActivity {
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
 
+        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 1","Line 1 Sub"));
+        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
+        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 3","Line 3 Sub"));
+
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
+        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
 
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
-
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
+        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
         majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
 
     }

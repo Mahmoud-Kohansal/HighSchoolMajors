@@ -2,25 +2,25 @@ package ir.medu.khn.highschoolmajors;
 
 public class MajorsRcVwItem {
 
-    private int mImageResourceCardRcVwMain;
-    private String mHeaderTextCardRcVwMain;
-    private String mSubTextCardRcVwMain;
+    private int mImageResourceCardRcVwMajors;
+    private String mHeaderTextCardRcVwMajors;
+    private String mSubTextCardRcVwMajors;
 
-    public MajorsRcVwItem(int imageResource, String text, String grayText) {
-        this.mImageResourceCardRcVwMain = imageResource;
-        this.mHeaderTextCardRcVwMain = text;
-        this.mSubTextCardRcVwMain = grayText;
+    public MajorsRcVwItem(int imageResource, String headerText, String subText) {
+        this.mImageResourceCardRcVwMajors = imageResource;
+        this.mHeaderTextCardRcVwMajors = headerText;
+        this.mSubTextCardRcVwMajors = subText;
     }
 
     public int getImageResource() {
-        return mImageResourceCardRcVwMain;
+        return mImageResourceCardRcVwMajors;
     }
 
-    public String getHeadeText() {
-        return mHeaderTextCardRcVwMain;
+    public String getHeaderText() {
+        return mHeaderTextCardRcVwMajors;
     }
 
     public String getSubText() {
-        return mSubTextCardRcVwMain;
+        return mSubTextCardRcVwMajors;
     }
 }

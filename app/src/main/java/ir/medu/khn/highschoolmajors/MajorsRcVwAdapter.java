@@ -3,6 +3,8 @@ package ir.medu.khn.highschoolmajors;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,10 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.MajorsRcVwViewHolder> {
+public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.MajorsRcVwViewHolder> implements Filterable {
 
     private ArrayList<MajorsRcVwItem> mMajorsRcVwItem_List;
+    private ArrayList<MajorsRcVwItem> mMajorsRcVwFullItems_List;
+
 
     public static class MajorsRcVwViewHolder extends RecyclerView.ViewHolder{
     public ImageView mImageView;
@@ -31,6 +36,8 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
     public MajorsRcVwAdapter(ArrayList<MajorsRcVwItem> majorsRcVwItem_List)
     {
         mMajorsRcVwItem_List = majorsRcVwItem_List;
+        mMajorsRcVwFullItems_List = new ArrayList<>(majorsRcVwItem_List);
+
     }
     @Override
     public MajorsRcVwViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +50,7 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
     public void onBindViewHolder(@NonNull MajorsRcVwViewHolder holder, int position) {
         MajorsRcVwItem currentItem = mMajorsRcVwItem_List.get(position);
         holder.mImageView.setImageResource(currentItem.getImageResource());
-        holder.mHeaderTextView.setText(currentItem.getHeadeText());
+        holder.mHeaderTextView.setText(currentItem.getHeaderText());
         holder.mSubTextView.setText(currentItem.getSubText());
     }
 
@@ -51,4 +58,42 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
     public int getItemCount() {
         return mMajorsRcVwItem_List.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return majorsFilter;
+    }
+
+    private Filter majorsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint_CS) {
+            List<MajorsRcVwItem> filteredMajors_List = new ArrayList<>();
+            if ( constraint_CS == null || constraint_CS.length() == 0)
+            {
+                filteredMajors_List.addAll(mMajorsRcVwFullItems_List);
+            }
+            else
+            {
+                String filterPattern = constraint_CS.toString().toLowerCase().trim();
+                for (MajorsRcVwItem rcItem: mMajorsRcVwFullItems_List){
+                    if(rcItem.getHeaderText().toLowerCase().contains(filterPattern))
+                    {
+                        filteredMajors_List.add(rcItem);
+                    }
+                }
+
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredMajors_List;
+            return  filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            mMajorsRcVwItem_List.clear();
+            mMajorsRcVwItem_List.addAll((List)filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 }
