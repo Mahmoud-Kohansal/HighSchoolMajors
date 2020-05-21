@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FieldsActivity"
+    android:weightSum="4"
+    >
+    <!-- Agri -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/agriFields_CrdVw"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="8dp"
+        >
+        <ImageView
+            android:id="@+id/agriFields_ImgVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/agri1"
+            android:layout_margin="8dp"
+            />
+
+    </androidx.cardview.widget.CardView>
+    <!-- Sanat -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sanatFields_CrdVw"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="8dp"
+        >
+        <ImageView
+            android:id="@+id/sanatFields_ImgVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sanat1"
+            android:layout_margin="8dp"
+            />
+
+    </androidx.cardview.widget.CardView>
+    <!-- Services -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/servicesFields_CrdVw"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="8dp"
+        >
+        <ImageView
+            android:id="@+id/servicesFields_ImgVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/services1"
+            android:layout_margin="8dp"
+            />
+
+    </androidx.cardview.widget.CardView>
+    <!-- Art -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/artFields_CrdVw"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="8dp"
+        >
+        <ImageView
+            android:id="@+id/artFields_ImgVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/art1"
+            android:layout_margin="8dp"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
