@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapaterRcVw;
     private RecyclerView.LayoutManager mLayoutManagerRcVw;
     private CardView introduceFieldsCrdVw;
+    private CardView introduceSchoolsCrdVw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void defineObjects()
     {
-        introduceFieldsCrdVw = findViewById(R.id.introduceFields_CrdVw);
+        introduceFieldsCrdVw = (CardView) findViewById(R.id.introduceFields_CrdVw);
+        introduceSchoolsCrdVw = (CardView) findViewById(R.id.introduceSchools_CrdVw);
     }
     private void setObjectsListeners()
     {
@@ -37,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent introduceFieldsActivity = new Intent(MainActivity.this,FieldsActivity.class);
                 startActivity(introduceFieldsActivity);
+            }
+        });
+        introduceSchoolsCrdVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent introduceSchoolsIntent =  new Intent(MainActivity.this, SchoolsActivity.class);
+                startActivity(introduceSchoolsIntent);
             }
         });
     }

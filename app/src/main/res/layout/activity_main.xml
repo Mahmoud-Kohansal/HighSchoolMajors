@@ -145,6 +145,7 @@
 
         <!-- Row2 Col2 -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/introduceSchools_CrdVw"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -163,7 +164,7 @@
                 android:orientation="vertical"
                 >
                 <ImageView
-                    android:src="@drawable/kar1"
+                    android:src="@drawable/school1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class MajorsActivity extends AppCompatActivity {
 
         MenuItem search_MnuItem = menu.findItem(R.id.search_MajorsMnuItm);
         SearchView searchView = (SearchView) search_MnuItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryText) {
