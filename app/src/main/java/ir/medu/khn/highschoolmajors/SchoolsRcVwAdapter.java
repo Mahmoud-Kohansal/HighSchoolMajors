@@ -16,27 +16,35 @@ import java.util.List;
 
 public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.SchoolsRcVwViewHolder> implements Filterable {
 
-    private ArrayList<SchoolsRcVwItem> mSchoolsRcVwItem_List;
-    private ArrayList<SchoolsRcVwItem> mSchoolsRcVwFullItems_List;
+    private ArrayList<SchoolInfoItem> mSchoolInfoItem_List;
+    private ArrayList<SchoolInfoItem> mSchoolInfoFullItems_List;
 
 
     public static class SchoolsRcVwViewHolder extends RecyclerView.ViewHolder{
-    public ImageView mImageView;
-    public TextView mHeaderTextView;
-    public  TextView mSubTextView;
+    public TextView mProvinceName_TxVw;
+    public TextView mSchoolName_TxVw;
+    public ImageView mGender_ImgVw;
+    public TextView mFields_TxVw;
+    public TextView mAddress_TxVw;
+
+
     public SchoolsRcVwViewHolder(View itemView)
     {
         super(itemView);
-        mImageView = itemView.findViewById(R.id.imageView_cardView_mainRcVw);
-        mHeaderTextView = itemView.findViewById(R.id.headerTextView_cardView_mainRcVw);
-        mSubTextView = itemView.findViewById(R.id.subTextView_cardView_mainRcVw);
+        mProvinceName_TxVw = itemView.findViewById(R.id.provinceName_TxVw_CardView_SchoolRcVw);
+        mSchoolName_TxVw = itemView.findViewById(R.id.schoolName_TxVw_CardView_SchoolRcVw);
+        mGender_ImgVw = itemView.findViewById(R.id.gender_ImgVw_CardView_SchoolRcVw);
+        mFields_TxVw = itemView.findViewById(R.id.fieldsName_TxVw_CardView_SchoolRcVw);
+        mAddress_TxVw = itemView.findViewById(R.id.address_TxVw_CardView_SchoolRcVw);
+    }
 
     }
-    }
-    public SchoolsRcVwAdapter(ArrayList<SchoolsRcVwItem> SchoolsRcVwItem_List)
+
+    public SchoolsRcVwAdapter(ArrayList<SchoolInfoItem> SchoolsRcVwItem_List)
     {
-        mSchoolsRcVwItem_List = SchoolsRcVwItem_List;
-        mSchoolsRcVwFullItems_List = new ArrayList<>(SchoolsRcVwItem_List);
+
+        mSchoolInfoItem_List = SchoolsRcVwItem_List;
+        mSchoolInfoFullItems_List = new ArrayList<>(SchoolsRcVwItem_List);
 
     }
     @Override
@@ -48,15 +56,17 @@ public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SchoolsRcVwViewHolder holder, int position) {
-        SchoolsRcVwItem currentItem = mSchoolsRcVwItem_List.get(position);
-        holder.mImageView.setImageResource(currentItem.getImageResource());
-        holder.mHeaderTextView.setText(currentItem.getHeaderText());
-        holder.mSubTextView.setText(currentItem.getSubText());
+        SchoolInfoItem currentItem = mSchoolInfoItem_List.get(position);
+        holder.mGender_ImgVw.setImageResource(currentItem.getGenderImgSource());
+        holder.mProvinceName_TxVw.setText(currentItem.getProvinceName());
+        holder.mSchoolName_TxVw.setText(currentItem.getSchoolName());
+        holder.mFields_TxVw.setText(currentItem.getFields());
+        holder.mAddress_TxVw.setText(currentItem.getAddress());
     }
 
     @Override
     public int getItemCount() {
-        return mSchoolsRcVwItem_List.size();
+        return mSchoolInfoItem_List.size();
     }
 
     @Override
@@ -67,32 +77,36 @@ public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.
     private Filter majorsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint_CS) {
-            List<SchoolsRcVwItem> filteredMajors_List = new ArrayList<>();
+            List<SchoolInfoItem> filteredSchoolInfo_List = new ArrayList<>();
             if ( constraint_CS == null || constraint_CS.length() == 0)
             {
-                filteredMajors_List.addAll(mSchoolsRcVwFullItems_List);
+                filteredSchoolInfo_List.addAll(mSchoolInfoFullItems_List);
             }
             else
             {
                 String filterPattern = constraint_CS.toString().toLowerCase().trim();
-                for (SchoolsRcVwItem rcItem: mSchoolsRcVwFullItems_List){
-                    if(rcItem.getHeaderText().toLowerCase().contains(filterPattern))
+                for (SchoolInfoItem rcItem: mSchoolInfoFullItems_List){
+                    if(rcItem.getSchoolName().toLowerCase().contains(filterPattern)
+                        || rcItem.getProvinceName().toLowerCase().contains(filterPattern)
+                        ||rcItem.getFields().toLowerCase().contains(filterPattern)
+                        || rcItem.getAddress().toLowerCase().contains(filterPattern)
+                        )
                     {
-                        filteredMajors_List.add(rcItem);
+                        filteredSchoolInfo_List.add(rcItem);
                     }
                 }
 
             }
             FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredMajors_List;
+            filterResults.values = filteredSchoolInfo_List;
             return  filterResults;
         }
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-            mSchoolsRcVwItem_List.clear();
-            mSchoolsRcVwItem_List.addAll((List)filterResults.values);
+            mSchoolInfoItem_List.clear();
+            mSchoolInfoItem_List.addAll((List)filterResults.values);
             notifyDataSetChanged();
         }
     };

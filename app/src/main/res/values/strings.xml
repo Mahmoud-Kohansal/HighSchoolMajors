@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HighSchoolMajors</string>
+    <string name="city_Desc">شهر: </string>
+    <string name="schoolName_Desc">نام هنرستان: </string>
+    <string name="address_Desc">نشانی: </string>
+    <string name="fields_Desc">رشته ها: </string>
 </resources>
