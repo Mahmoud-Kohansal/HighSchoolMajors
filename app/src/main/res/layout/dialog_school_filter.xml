@@ -5,7 +5,7 @@
     android:padding="16dp"
     >
     <Spinner
-        android:id="@+id/h_sp"
+        android:id="@+id/province_SchoolFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ></Spinner>

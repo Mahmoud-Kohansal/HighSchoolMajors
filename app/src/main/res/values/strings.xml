@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">HighSchoolMajors</string>
-    <string name="city_Desc">شهر: </string>
-    <string name="schoolName_Desc">نام هنرستان: </string>
-    <string name="address_Desc">نشانی: </string>
-    <string name="fields_Desc">رشته ها: </string>
+    <string name="city_desc">شهر: </string>
+    <string name="schoolName_desc">نام هنرستان: </string>
+    <string name="address_desc">نشانی: </string>
+    <string name="fields_desc">رشته ها: </string>
+    <string name="json_tag_school_schools">schools</string>
+    <string name="json_tag_school_province">شهرستان</string>
+    <string name="json_tag_school_name">نام هنرستان</string>
+    <string name="json_tag_school_gender">جنسيت</string>
+    <string name="json_tag_school_fields">رشته هاي موجود</string>
+    <string name="json_tag_school_address">آدرس</string>
+    <string name="json_school_male_gender">پسرانه</string>
+    <string name="json_school_female_gender">دخترانه</string>
+
+
 </resources>

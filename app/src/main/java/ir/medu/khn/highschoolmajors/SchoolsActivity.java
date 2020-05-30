@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,7 +36,10 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         //Define view objects
         defineObjects();
         //Draw Menu
+
         makeList();
+        //Read fields json and Fill adapter
+        schoolInfoItems_List = makeSchoolsListFromJsonFile();
         buildRecyclerView();
     }
     @Override
@@ -91,10 +98,44 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
     private void makeList()
     {
         schoolInfoItems_List = new ArrayList<>();
-        schoolInfoItems_List.add(new SchoolInfoItem("اسفراین","طالقانی",R.drawable.agri1,"کامپیوتر - معماری - تربیت بدنی - حسابداری","انتهای خیابان امام رضا"));
-        schoolInfoItems_List.add(new SchoolInfoItem("اسفراین","طالقانی",R.drawable.agri1,"کامپیوتر - معماری - تربیت بدنی - حسابداری","انتهای خیابان امام رضا"));
-        schoolInfoItems_List.add(new SchoolInfoItem("اسفراین","طالقانی",R.drawable.agri1,"کامپیوتر - معماری - تربیت بدنی - حسابداری","انتهای خیابان امام رضا"));
+    }
+    private ArrayList<SchoolInfoItem> makeSchoolsListFromJsonFile()
+    {
+        ArrayList<SchoolInfoItem> schoolInfoItems = new ArrayList<>();
+        try {
+            JSONObject object = new JSONObject(readJSON("schools.json"));
+            JSONArray schoolsArray = object.getJSONArray(getString(R.string.json_tag_school_schools));
+            for (int i = 0; i < schoolsArray.length(); i++) {
 
+                JSONObject jsonObject = schoolsArray.getJSONObject(i);
+                String provinceName = jsonObject.getString(getString(R.string.json_tag_school_province));
+                String schoolName = jsonObject.getString(getString(R.string.json_tag_school_name));
+                String schoolGender = jsonObject.getString(getString(R.string.json_tag_school_gender));
+                String schoolFields = jsonObject.getString(getString(R.string.json_tag_school_fields));
+                String schoolAddress = jsonObject.getString(getString(R.string.json_tag_school_address));
+
+                SchoolInfoItem schoolInfoItem = new SchoolInfoItem();
+                schoolInfoItem.setProvinceName(provinceName);
+                schoolInfoItem.setSchoolName(schoolName);
+                schoolInfoItem.setFields(schoolFields);
+                schoolInfoItem.setAddress(schoolAddress);
+                schoolInfoItem.setGender(schoolGender);
+
+                if(schoolGender.equals(getString(R.string.json_school_male_gender)))
+                {
+                    schoolInfoItem.setGenderImgSource(R.drawable.male);
+                }
+                else
+                {
+                    schoolInfoItem.setGenderImgSource(R.drawable.female);
+                }
+                schoolInfoItems.add(schoolInfoItem);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return schoolInfoItems;
     }
 
     private void openSchoolFilterDialog()

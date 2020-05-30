@@ -90,6 +90,7 @@ public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.
                         || rcItem.getProvinceName().toLowerCase().contains(filterPattern)
                         ||rcItem.getFields().toLowerCase().contains(filterPattern)
                         || rcItem.getAddress().toLowerCase().contains(filterPattern)
+                        || rcItem.getGender().toLowerCase().contains(filterPattern)
                         )
                     {
                         filteredSchoolInfo_List.add(rcItem);
