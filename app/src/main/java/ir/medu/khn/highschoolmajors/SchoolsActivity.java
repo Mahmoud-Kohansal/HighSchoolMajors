@@ -145,8 +145,8 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
 
     }
     @Override
-    public void applyTexts(String username, String password) {
-        Toast.makeText(getApplicationContext(),username + "" +password,Toast.LENGTH_LONG).show();
+    public void setFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) {
+        Toast.makeText(getApplicationContext(), province_FilterField + " " + field_FilterField + " " + gender_FilterField,Toast.LENGTH_LONG).show();
     }
     
     public String readJSON(String fileNameInAssets) {

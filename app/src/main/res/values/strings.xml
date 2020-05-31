@@ -4,6 +4,8 @@
     <string name="schoolName_desc">نام هنرستان: </string>
     <string name="address_desc">نشانی: </string>
     <string name="fields_desc">رشته ها: </string>
+    <string name="field_desc">رشته: </string>
+    <string name="gender_desc">جنسیت: </string>
     <string name="json_tag_school_schools">schools</string>
     <string name="json_tag_school_province">شهرستان</string>
     <string name="json_tag_school_name">نام هنرستان</string>
@@ -12,6 +14,9 @@
     <string name="json_tag_school_address">آدرس</string>
     <string name="json_school_male_gender">پسرانه</string>
     <string name="json_school_female_gender">دخترانه</string>
+    <string name="title_SchoolFilter_Dialog">فیلترها</string>
+    <string name="cancel">انصراف</string>
+    <string name="apply">اعمال</string>
 
 
 </resources>
