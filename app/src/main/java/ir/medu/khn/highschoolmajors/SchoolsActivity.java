@@ -6,7 +6,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,21 +24,18 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
     RecyclerView mSchools_RecyclerView;
     LinearLayoutManager mSchoolsRcVw_LayoutManager;
     SchoolsRcVwAdapter mSchoolsRcVw_Adapter;
-    ArrayList<SchoolInfoItem> schoolInfoItems_List;
+    ArrayList<SchoolInfoItem> mSchoolInfoItems_List;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schools);
-        setTitle("هنرستان ها");
+        setTitle(getString(R.string.title_school_activity));
         //Define view objects
         defineObjects();
-        //Draw Menu
-
-        makeList();
         //Read fields json and Fill adapter
-        schoolInfoItems_List = makeSchoolsListFromJsonFile();
+        mSchoolInfoItems_List = makeSchoolsListFromJsonFile();
         buildRecyclerView();
     }
     @Override
@@ -91,14 +87,11 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
     {        
         mSchools_RecyclerView.setHasFixedSize(true);
         mSchoolsRcVw_LayoutManager = new LinearLayoutManager(this);
-        mSchoolsRcVw_Adapter = new SchoolsRcVwAdapter(schoolInfoItems_List);
+        mSchoolsRcVw_Adapter = new SchoolsRcVwAdapter(mSchoolInfoItems_List);
         mSchools_RecyclerView.setLayoutManager(mSchoolsRcVw_LayoutManager);
         mSchools_RecyclerView.setAdapter(mSchoolsRcVw_Adapter);
     }
-    private void makeList()
-    {
-        schoolInfoItems_List = new ArrayList<>();
-    }
+
     private ArrayList<SchoolInfoItem> makeSchoolsListFromJsonFile()
     {
         ArrayList<SchoolInfoItem> schoolInfoItems = new ArrayList<>();
@@ -145,8 +138,56 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
 
     }
     @Override
-    public void setFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) {
-        Toast.makeText(getApplicationContext(), province_FilterField + " " + field_FilterField + " " + gender_FilterField,Toast.LENGTH_LONG).show();
+    public void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) {
+        //Toast.makeText(getApplicationContext(), province_FilterField + " " + field_FilterField + " " + gender_FilterField,Toast.LENGTH_LONG).show();
+
+        ArrayList<SchoolInfoItem> provinceFilteredSchoolInfo_List = new ArrayList<>();
+        ArrayList<SchoolInfoItem> fieldFilteredSchoolInfo_List = new ArrayList<>();
+        ArrayList<SchoolInfoItem> genderFilteredSchoolInfo_List = new ArrayList<>();
+        ArrayList<SchoolInfoItem> filteredSchoolInfo_List = new ArrayList<>(mSchoolInfoItems_List);
+        //Filter Province
+        if(province_FilterField != null && province_FilterField != "")
+        {
+            String province_FilterPattern = province_FilterField.toLowerCase().trim();
+
+            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
+                if(rcItem.getProvinceName().toLowerCase().contains(province_FilterPattern))
+                {
+                    provinceFilteredSchoolInfo_List.add(rcItem);
+                }
+            }
+            filteredSchoolInfo_List = new ArrayList<>(provinceFilteredSchoolInfo_List);
+        }
+
+        //Filter Field
+        if(field_FilterField != null && field_FilterField != "")
+        {
+            String field_FilterPattern = field_FilterField.toLowerCase().trim();
+            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
+                if(rcItem.getFields().toLowerCase().contains(field_FilterPattern))
+                {
+                    fieldFilteredSchoolInfo_List.add(rcItem);
+                }
+
+            }
+            filteredSchoolInfo_List = new ArrayList<>(fieldFilteredSchoolInfo_List);
+        }
+
+        //Filter Gender
+        if(gender_FilterField != null && gender_FilterField != "")
+        {
+            String gender_FilterPattern = gender_FilterField.toLowerCase().trim();
+            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
+                if(rcItem.getGender().toLowerCase().contains(gender_FilterPattern))
+                {
+                    genderFilteredSchoolInfo_List.add(rcItem);
+                }
+
+            }
+            filteredSchoolInfo_List = new ArrayList<>(genderFilteredSchoolInfo_List);
+        }
+
+        mSchoolsRcVw_Adapter.setFilteredList(filteredSchoolInfo_List);
     }
     
     public String readJSON(String fileNameInAssets) {

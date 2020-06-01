@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.app.AlertDialog;
@@ -27,12 +26,13 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
     private Spinner sprGenderSchoolFilter;
 
     //Arrays
-    ArrayAdapter<String> provincesAdapter;
-    ArrayAdapter<String> fieldsAdapter;
-    ArrayAdapter<String> genderAdapter;
-    private List<String> provinces_List;
-    private List<String> fields_List;
-    private List<String> gender_List;
+    //ArrayAdapter<String> provincesAdapter;
+    FilterFieldAdapter provincesAdapter;
+    FilterFieldAdapter fieldsAdapter;
+    FilterFieldAdapter genderAdapter;
+    private ArrayList<String> provinces_List;
+    private ArrayList<String> fields_List;
+    private ArrayList<String> gender_List;
 
     //Variables
     private String provinceFilterField;
@@ -54,7 +54,7 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
                 .setPositiveButton(getString(R.string.apply), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.setFilterFields(provinceFilterField, fieldFilterField, genderFilterField);
+                        listener.applyFilterFields(provinceFilterField, fieldFilterField, genderFilterField);
                     }
                 });
         defineObjects(view);
@@ -68,8 +68,16 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
         sprProvinceSchoolFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                provinceFilterField = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(), provinceFilterField,Toast.LENGTH_LONG).show();
+                if(i == 0)
+                {
+                    provinceFilterField = "";
+                }
+                else
+                {
+                    provinceFilterField = adapterView.getItemAtPosition(i).toString();
+                }
+
+                //Toast.makeText(adapterView.getContext(), provinceFilterField,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -81,8 +89,16 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
         sprFieldSchoolFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                fieldFilterField = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(), fieldFilterField,Toast.LENGTH_LONG).show();
+                if( i == 0)
+                {
+                    fieldFilterField = "";
+                }
+                else
+                {
+                    fieldFilterField = adapterView.getItemAtPosition(i).toString();
+                }
+
+                //Toast.makeText(adapterView.getContext(), fieldFilterField,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -94,8 +110,16 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
         sprGenderSchoolFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                genderFilterField = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(adapterView.getContext(), genderFilterField,Toast.LENGTH_LONG).show();
+                if( i == 0)
+                {
+                    genderFilterField = "";
+                }
+                else
+                {
+                    genderFilterField = adapterView.getItemAtPosition(i).toString();
+                }
+
+                //Toast.makeText(adapterView.getContext(), genderFilterField,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -112,33 +136,37 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
 
         //Fill province List
         provinces_List = new ArrayList<>();
-        provinces_List.add("P1");
-        provinces_List.add("P2");
-        provinces_List.add("P3");
+        provinces_List.add("شهر مورد نظر");
+        provinces_List.add("بجنورد");
+        provinces_List.add("اسفراین");
+        provinces_List.add("شیروان");
 
         //Set province adapter options
-        provincesAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_spinner_item, provinces_List);
+        //provincesAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_spinner_item, provinces_List);
+        provincesAdapter = new FilterFieldAdapter(view.getContext(), android.R.layout.simple_spinner_item, provinces_List);
         provincesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sprProvinceSchoolFilter.setAdapter(provincesAdapter);
 
         //Fill field List
         fields_List = new ArrayList<>();
-        fields_List.add("S1");
-        fields_List.add("S2");
-        fields_List.add("S3");
+        fields_List.add("رشته مورد نظر");
+        fields_List.add("شبکه");
+        fields_List.add("معماری");
+        fields_List.add("گرافیک");
 
         //Set fields adapter options
-        fieldsAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_spinner_item, fields_List);
+        fieldsAdapter = new FilterFieldAdapter(view.getContext(),android.R.layout.simple_spinner_item, fields_List);
         fieldsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sprFieldSchoolFilter.setAdapter(fieldsAdapter);
 
         //Fill gender List
         gender_List = new ArrayList<>();
-        gender_List.add("Male");
-        gender_List.add("Female");
+        gender_List.add("جنسیت");
+        gender_List.add("دخترانه");
+        gender_List.add("پسرانه");
 
         //Set gender adapter options
-        genderAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_spinner_item, gender_List);
+        genderAdapter = new FilterFieldAdapter(view.getContext(),android.R.layout.simple_spinner_item, gender_List);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sprGenderSchoolFilter.setAdapter(genderAdapter);
 
@@ -158,6 +186,6 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
         }
     }
     public interface SchoolFilterDialogListener {
-        void setFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField);
+        void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField);
     }
 }

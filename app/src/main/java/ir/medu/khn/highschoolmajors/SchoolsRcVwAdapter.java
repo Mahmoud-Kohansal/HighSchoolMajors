@@ -40,12 +40,17 @@ public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.
 
     }
 
-    public SchoolsRcVwAdapter(ArrayList<SchoolInfoItem> SchoolsRcVwItem_List)
+    public SchoolsRcVwAdapter(ArrayList<SchoolInfoItem> schoolsRcVwItem_List)
     {
 
-        mSchoolInfoItem_List = SchoolsRcVwItem_List;
-        mSchoolInfoFullItems_List = new ArrayList<>(SchoolsRcVwItem_List);
+        mSchoolInfoItem_List = schoolsRcVwItem_List;
+        mSchoolInfoFullItems_List = new ArrayList<>(schoolsRcVwItem_List);
 
+    }
+    public void setFilteredList(ArrayList<SchoolInfoItem> schoolsRcVwItemFiltered_List)
+    {
+        mSchoolInfoItem_List = schoolsRcVwItemFiltered_List;
+        notifyDataSetChanged();
     }
     @Override
     public SchoolsRcVwViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
