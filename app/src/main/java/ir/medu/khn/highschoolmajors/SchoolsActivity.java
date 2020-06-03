@@ -1,7 +1,6 @@
 package ir.medu.khn.highschoolmajors;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDialog.SchoolFilterDialogListener{
@@ -28,7 +26,7 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
     LinearLayoutManager mSchoolsRcVw_LayoutManager;
     SchoolsRcVwAdapter mSchoolsRcVw_Adapter;
     ArrayList<SchoolInfoItem> mSchoolInfoItems_List;
-
+    FileExtension fileExtension;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,17 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         setTitle(getString(R.string.title_school_activity));
         //Define view objects
         defineObjects();
+        //Initialize
+        Initialize();
         //Read fields json and Fill adapter
-        mSchoolInfoItems_List = makeSchoolsListFromJsonFile();
+        mSchoolInfoItems_List = makeSchoolsListFromJsonFileExtension();
         buildRecyclerView();
     }
+
+    private void Initialize() {
+        fileExtension = FileExtension.getInstance();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         MenuInflater schoolsMenuInflator = getMenuInflater();
@@ -95,20 +100,21 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         mSchools_RecyclerView.setAdapter(mSchoolsRcVw_Adapter);
     }
 
-    private ArrayList<SchoolInfoItem> makeSchoolsListFromJsonFile()
+
+    private ArrayList<SchoolInfoItem> makeSchoolsListFromJsonFileExtension()
     {
         ArrayList<SchoolInfoItem> schoolInfoItems = new ArrayList<>();
         try {
-            JSONObject object = new JSONObject(readJSON("schools.json"));
-            JSONArray schoolsArray = object.getJSONArray(getString(R.string.json_tag_school_schools));
+            JSONObject object = new JSONObject(fileExtension.readJSONFile(this,"schools.json"));
+            JSONArray schoolsArray = object.getJSONArray(getString(R.string.json_tag_data));
             for (int i = 0; i < schoolsArray.length(); i++) {
 
                 JSONObject jsonObject = schoolsArray.getJSONObject(i);
-                String provinceName = jsonObject.getString(getString(R.string.json_tag_school_province));
+                String provinceName = jsonObject.getString(getString(R.string.json_tag_province));
                 String schoolName = jsonObject.getString(getString(R.string.json_tag_school_name));
-                String schoolGender = jsonObject.getString(getString(R.string.json_tag_school_gender));
-                String schoolFields = jsonObject.getString(getString(R.string.json_tag_school_fields));
-                String schoolAddress = jsonObject.getString(getString(R.string.json_tag_school_address));
+                String schoolGender = jsonObject.getString(getString(R.string.json_tag_gender));
+                String schoolFields = jsonObject.getString(getString(R.string.json_tag_fields));
+                String schoolAddress = jsonObject.getString(getString(R.string.json_tag_address));
 
                 SchoolInfoItem schoolInfoItem = new SchoolInfoItem();
                 schoolInfoItem.setProvinceName(provinceName);
@@ -117,7 +123,7 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
                 schoolInfoItem.setAddress(schoolAddress);
                 schoolInfoItem.setGender(schoolGender);
 
-                if(schoolGender.equals(getString(R.string.json_school_male_gender)))
+                if(schoolGender.equals(getString(R.string.json_tag_male_gender)))
                 {
                     schoolInfoItem.setGenderImgSource(R.drawable.male);
                 }

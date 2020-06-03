@@ -1,22 +1,36 @@
 <resources>
     <string name="app_name">HighSchoolMajors</string>
+    <!-- Descriptions -->
     <string name="city_desc">شهر: </string>
     <string name="schoolName_desc">نام هنرستان: </string>
     <string name="address_desc">نشانی: </string>
     <string name="fields_desc">رشته ها: </string>
     <string name="field_desc">رشته: </string>
     <string name="gender_desc">جنسیت: </string>
-    <string name="json_tag_school_schools">schools</string>
-    <string name="json_tag_school_province">شهرستان</string>
+
+    <!-- Json Tags -->
+    <string name="json_tag_data">data</string>
+    <string name="json_tag_province">شهرستان</string>
     <string name="json_tag_school_name">نام هنرستان</string>
-    <string name="json_tag_school_gender">جنسيت</string>
-    <string name="json_tag_school_fields">رشته هاي موجود</string>
-    <string name="json_tag_school_address">آدرس</string>
-    <string name="json_school_male_gender">پسرانه</string>
-    <string name="json_school_female_gender">دخترانه</string>
+    <string name="json_tag_gender">جنسيت</string>
+    <string name="json_tag_fields">رشته هاي موجود</string>
+    <string name="json_tag_field">رشته</string>
+    <string name="json_tag_address">آدرس</string>
+    <string name="json_tag_male_gender">پسرانه</string>
+    <string name="json_tag_female_gender">دخترانه</string>
+
+    <!-- Titles -->
     <string name="title_SchoolFilter_Dialog">فیلترها</string>
-    <string name="cancel">انصراف</string>
-    <string name="apply">اعمال</string>
     <string name="title_school_activity">هنرستان ها</string>
+
+    <!-- Buttons -->
+    <string name="cancel_btn">انصراف</string>
+    <string name="apply_btn">اعمال</string>
+
+    <!-- arrays -->
+    <string-array name="gender">
+        <item>دخترانه</item>
+        <item>پسرانه</item>
+    </string-array>
 
 </resources>

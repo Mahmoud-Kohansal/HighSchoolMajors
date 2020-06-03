@@ -28,17 +28,20 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/provinceName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
             android:layout_height="27dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Province Name"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/provinceName_TxVw_Desc"
+            app:layout_constraintStart_toEndOf="@+id/gender_ImgVw_CardView_SchoolRcVw"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- School Name -->
@@ -55,19 +58,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/provinceName_TxVw_CardView_SchoolRcVw"
             />
+
         <TextView
             android:id="@+id/schoolName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
             android:layout_height="27dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="School Name"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/schoolName_TxVw_Desc"
-            app:layout_constraintTop_toBottomOf="@+id/provinceName_TxVw_CardView_SchoolRcVw"
-            />
+            app:layout_constraintStart_toEndOf="@+id/gender_ImgVw_CardView_SchoolRcVw"
+            app:layout_constraintTop_toBottomOf="@+id/provinceName_TxVw_CardView_SchoolRcVw" />
         <!-- Gender Image -->
         <ImageView
             android:id="@+id/gender_ImgVw_CardView_SchoolRcVw"
@@ -76,7 +81,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/json_tag_gender"
+            />
 
         <!-- Fields -->
         <TextView
@@ -92,21 +99,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/schoolName_TxVw_CardView_SchoolRcVw"
             />
+
         <TextView
             android:id="@+id/fieldsName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Fields"
-            android:maxLines="3"
             android:lines="2"
+            android:maxLines="3"
+            android:text="Fields"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/fieldsName_TxVw_Desc"
-            app:layout_constraintTop_toBottomOf="@+id/schoolName_TxVw_CardView_SchoolRcVw"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schoolName_TxVw_CardView_SchoolRcVw" />
 
         <!--  Address-->
         <TextView
@@ -122,19 +131,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fieldsName_TxVw_CardView_SchoolRcVw"
             />
+
         <TextView
             android:id="@+id/address_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Address"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/address_TxVw_Desc"
-            app:layout_constraintTop_toBottomOf="@+id/fieldsName_TxVw_CardView_SchoolRcVw"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fieldsName_TxVw_CardView_SchoolRcVw" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
