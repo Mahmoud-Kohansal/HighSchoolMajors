@@ -1,6 +1,7 @@
 package ir.medu.khn.highschoolmajors;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDialog.SchoolFilterDialogListener{
@@ -138,7 +141,7 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
 
     }
     @Override
-    public void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) {
+    public void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) throws UnsupportedEncodingException {
         //Toast.makeText(getApplicationContext(), province_FilterField + " " + field_FilterField + " " + gender_FilterField,Toast.LENGTH_LONG).show();
 
         ArrayList<SchoolInfoItem> provinceFilteredSchoolInfo_List = new ArrayList<>();
@@ -146,12 +149,11 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         ArrayList<SchoolInfoItem> genderFilteredSchoolInfo_List = new ArrayList<>();
         ArrayList<SchoolInfoItem> filteredSchoolInfo_List = new ArrayList<>(mSchoolInfoItems_List);
         //Filter Province
-        if(province_FilterField != null && province_FilterField != "")
-        {
+        if (province_FilterField != null && province_FilterField != "") {
             String province_FilterPattern = province_FilterField.toLowerCase().trim();
-
-            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
+            for (SchoolInfoItem rcItem : filteredSchoolInfo_List) {
                 if(rcItem.getProvinceName().toLowerCase().contains(province_FilterPattern))
+
                 {
                     provinceFilteredSchoolInfo_List.add(rcItem);
                 }
@@ -160,12 +162,10 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         }
 
         //Filter Field
-        if(field_FilterField != null && field_FilterField != "")
-        {
+        if (field_FilterField != null && field_FilterField != "") {
             String field_FilterPattern = field_FilterField.toLowerCase().trim();
-            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
-                if(rcItem.getFields().toLowerCase().contains(field_FilterPattern))
-                {
+            for (SchoolInfoItem rcItem : filteredSchoolInfo_List) {
+                if (rcItem.getFields().toLowerCase().trim().contains(field_FilterPattern)) {
                     fieldFilteredSchoolInfo_List.add(rcItem);
                 }
 
@@ -174,19 +174,16 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
         }
 
         //Filter Gender
-        if(gender_FilterField != null && gender_FilterField != "")
-        {
+        if (gender_FilterField != null && gender_FilterField != "") {
             String gender_FilterPattern = gender_FilterField.toLowerCase().trim();
-            for (SchoolInfoItem rcItem: filteredSchoolInfo_List){
-                if(rcItem.getGender().toLowerCase().contains(gender_FilterPattern))
-                {
+            for (SchoolInfoItem rcItem : filteredSchoolInfo_List) {
+                if (rcItem.getGender().toLowerCase().trim().contains(gender_FilterPattern)) {
                     genderFilteredSchoolInfo_List.add(rcItem);
                 }
 
             }
             filteredSchoolInfo_List = new ArrayList<>(genderFilteredSchoolInfo_List);
         }
-
         mSchoolsRcVw_Adapter.setFilteredList(filteredSchoolInfo_List);
     }
     

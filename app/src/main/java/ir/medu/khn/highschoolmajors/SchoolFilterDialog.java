@@ -3,6 +3,7 @@ package ir.medu.khn.highschoolmajors;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.app.Dialog;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.app.AlertDialog;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,14 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
                 .setPositiveButton(getString(R.string.apply), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.applyFilterFields(provinceFilterField, fieldFilterField, genderFilterField);
+                        try {
+                            listener.applyFilterFields(provinceFilterField, fieldFilterField, genderFilterField);
+                        }
+                        catch (Exception exp)
+                        {
+                            Log.i("UTF-8 Error",exp.getMessage());
+                        }
+
                     }
                 });
         defineObjects(view);
@@ -186,6 +195,6 @@ public class SchoolFilterDialog extends AppCompatDialogFragment {
         }
     }
     public interface SchoolFilterDialogListener {
-        void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField);
+        void applyFilterFields(String province_FilterField, String field_FilterField, String gender_FilterField) throws UnsupportedEncodingException;
     }
 }
