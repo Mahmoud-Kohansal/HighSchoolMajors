@@ -32,7 +32,8 @@
         <TextView
             android:id="@+id/provinceName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/homa"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -62,7 +63,8 @@
         <TextView
             android:id="@+id/schoolName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gandom"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -104,6 +106,7 @@
             android:id="@+id/fieldsName_TxVw_CardView_SchoolRcVw"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bahij_nazanin_bold"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"

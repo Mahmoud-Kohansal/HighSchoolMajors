@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Font -->
+    <style name="YekanFont">
+        <item name="android:path">fonts/</item>
+    </style>
 </resources>
