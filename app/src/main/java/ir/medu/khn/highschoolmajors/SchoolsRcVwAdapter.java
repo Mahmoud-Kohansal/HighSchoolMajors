@@ -76,10 +76,10 @@ public class SchoolsRcVwAdapter extends RecyclerView.Adapter<SchoolsRcVwAdapter.
 
     @Override
     public Filter getFilter() {
-        return majorsFilter;
+        return schoolsFilter;
     }
 
-    private Filter majorsFilter = new Filter() {
+    private Filter schoolsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint_CS) {
             List<SchoolInfoItem> filteredSchoolInfo_List = new ArrayList<>();

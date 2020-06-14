@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,27 +15,23 @@ import java.util.List;
 
 public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.MajorsRcVwViewHolder> implements Filterable {
 
-    private ArrayList<MajorsRcVwItem> mMajorsRcVwItem_List;
-    private ArrayList<MajorsRcVwItem> mMajorsRcVwFullItems_List;
+    private ArrayList<MajorInfoItem> mMajorInfoItem_List;
+    private ArrayList<MajorInfoItem> mMajorsRcVwFullItems_List;
 
 
     public static class MajorsRcVwViewHolder extends RecyclerView.ViewHolder{
-    public ImageView mImageView;
-    public TextView mHeaderTextView;
-    public  TextView mSubTextView;
+    public  TextView mMajorName_TxtVw;
     public MajorsRcVwViewHolder(View itemView)
     {
         super(itemView);
-        mImageView = itemView.findViewById(R.id.imageView_cardView_mainRcVw);
-        mHeaderTextView = itemView.findViewById(R.id.headerTextView_cardView_mainRcVw);
-        mSubTextView = itemView.findViewById(R.id.subTextView_cardView_mainRcVw);
+        mMajorName_TxtVw = itemView.findViewById(R.id.majorName_cardView_majorRcVw);
 
     }
     }
-    public MajorsRcVwAdapter(ArrayList<MajorsRcVwItem> majorsRcVwItem_List)
+    public MajorsRcVwAdapter(ArrayList<MajorInfoItem> MajorInfoItem_List)
     {
-        mMajorsRcVwItem_List = majorsRcVwItem_List;
-        mMajorsRcVwFullItems_List = new ArrayList<>(majorsRcVwItem_List);
+        mMajorInfoItem_List = MajorInfoItem_List;
+        mMajorsRcVwFullItems_List = new ArrayList<>(MajorInfoItem_List);
 
     }
     @Override
@@ -48,15 +43,13 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
 
     @Override
     public void onBindViewHolder(@NonNull MajorsRcVwViewHolder holder, int position) {
-        MajorsRcVwItem currentItem = mMajorsRcVwItem_List.get(position);
-        holder.mImageView.setImageResource(currentItem.getImageResource());
-        holder.mHeaderTextView.setText(currentItem.getHeaderText());
-        holder.mSubTextView.setText(currentItem.getSubText());
+        MajorInfoItem currentItem = mMajorInfoItem_List.get(position);
+        holder.mMajorName_TxtVw.setText(currentItem.getMajorName());
     }
 
     @Override
     public int getItemCount() {
-        return mMajorsRcVwItem_List.size();
+        return mMajorInfoItem_List.size();
     }
 
     @Override
@@ -67,16 +60,16 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
     private Filter majorsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint_CS) {
-            List<MajorsRcVwItem> filteredMajors_List = new ArrayList<>();
+            List<MajorInfoItem> filteredMajors_List = new ArrayList<>();
             if ( constraint_CS == null || constraint_CS.length() == 0)
             {
                 filteredMajors_List.addAll(mMajorsRcVwFullItems_List);
             }
             else
             {
-                String filterPattern = constraint_CS.toString().toLowerCase().trim();
-                for (MajorsRcVwItem rcItem: mMajorsRcVwFullItems_List){
-                    if(rcItem.getHeaderText().toLowerCase().contains(filterPattern))
+                String filterPattern = constraint_CS.toString();
+                for (MajorInfoItem rcItem: mMajorsRcVwFullItems_List){
+                    if(rcItem.getMajorCategory().equals(filterPattern))
                     {
                         filteredMajors_List.add(rcItem);
                     }
@@ -91,8 +84,8 @@ public class MajorsRcVwAdapter extends RecyclerView.Adapter<MajorsRcVwAdapter.Ma
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-            mMajorsRcVwItem_List.clear();
-            mMajorsRcVwItem_List.addAll((List)filterResults.values);
+            mMajorInfoItem_List.clear();
+            mMajorInfoItem_List.addAll((List)filterResults.values);
             notifyDataSetChanged();
         }
     };

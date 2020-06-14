@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">HighSchoolMajors</string>
+
+    <!-- Majors category-->
+    <string name="agriculture_category">کشاورزی</string>
+    <string name="manufacture_category">صنعت</string>
+    <string name="services_category">خدمات</string>
+    <string name="art_category">هنر</string>
+
     <!-- Descriptions -->
     <string name="city_desc">شهر: </string>
     <string name="schoolName_desc">نام هنرستان: </string>
@@ -18,11 +25,22 @@
     <string name="json_tag_address">آدرس</string>
     <string name="json_tag_male_gender">پسرانه</string>
     <string name="json_tag_female_gender">دخترانه</string>
+    <string name="json_tag_name">نام</string>
+    <string name="json_tag_category">گروه</string>
+    <string name="json_tag_introduction">معرفی</string>
 
     <!-- Titles -->
     <string name="title_SchoolFilter_Dialog">فیلترها</string>
-    <string name="title_school_activity">هنرستان ها</string>
+    <string name="title_main_activity">هنرستان های خراسان شمالی</string>
 
+    <!-- Icons -->
+    <string name="icon_caption_reserve">رزرو</string>
+    <string name="icon_caption_introduce_kar_fields">کارو دانش</string>
+    <string name="icon_caption_school">هنرستان ها</string>
+    <string name="icon_caption_agriculture">گروه کشاورزی</string>
+    <string name="icon_caption_manufacture">گروه صنعت</string>
+    <string name="icon_caption_art">گروه هنر</string>
+    <string name="icon_caption_services">گروه خدمات</string>
     <!-- Buttons -->
     <string name="cancel_btn">انصراف</string>
     <string name="apply_btn">اعمال</string>
@@ -32,5 +50,10 @@
         <item>دخترانه</item>
         <item>پسرانه</item>
     </string-array>
-
+    <string-array name="major_category">
+        <item>صنعت</item>
+        <item>کشاورزی</item>
+        <item>خدمات</item>
+        <item>هنر</item>
+    </string-array>
 </resources>

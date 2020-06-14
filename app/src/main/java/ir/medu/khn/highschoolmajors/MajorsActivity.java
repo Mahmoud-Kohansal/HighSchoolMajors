@@ -11,6 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -19,20 +24,26 @@ public class MajorsActivity extends AppCompatActivity {
     RecyclerView mMajors_RecyclerView;   
     LinearLayoutManager mMajorsRcVw_LayoutManager;
     MajorsRcVwAdapter mMajorsRcVw_Adapter;
-    ArrayList<MajorsRcVwItem> majorsRcVwItems_List;
-    String fieldName = "agri";
+    ArrayList<MajorInfoItem> mMajorsInfoItems_FullList;
+    String majorCategory = "agriculture";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_majors);
         //get caller intent Extra fields
-        getIntentFromFields();
+        majorCategory = getIntentFromFields();
+        Toast.makeText(this,majorCategory,Toast.LENGTH_LONG).show();
+
         //Define view objects
         defineObjects();
         //Draw Menu
 
-        makeList();
-        buildRecyclerView();
+        //mMajorsInfoItems_FilteredList = FilterListByCategory(mMajorsInfoItems_FullList, fieldCategory);
+        //makeList();
+        mMajorsInfoItems_FullList = makeSchoolsListFromJsonFileExtension();
+        buildRecyclerView(mMajorsInfoItems_FullList);
+        //Filter by Category
+        mMajorsRcVw_Adapter.getFilter().filter(majorCategory);
 
     }
 
@@ -60,45 +71,49 @@ public class MajorsActivity extends AppCompatActivity {
     }
 
 
-    private void getIntentFromFields() {
+    private String getIntentFromFields() {
         Intent intent = getIntent();
-        fieldName = intent.getStringExtra(FieldsActivity.EXTRA_FIELD_NAME);
+        return intent.getStringExtra(FieldsActivity.EXTRA_FIELD_NAME);
     }
 
     private void defineObjects() {
         mMajors_RecyclerView = findViewById(R.id.majorsItems_RcVw);
 
     }
-    private void buildRecyclerView()
+    private void buildRecyclerView(ArrayList<MajorInfoItem> majorsInfoItems_List)
     {        
         mMajors_RecyclerView.setHasFixedSize(true);
         mMajorsRcVw_LayoutManager = new LinearLayoutManager(this);
-        mMajorsRcVw_Adapter = new MajorsRcVwAdapter(majorsRcVwItems_List);
+        mMajorsRcVw_Adapter = new MajorsRcVwAdapter(majorsInfoItems_List);
         mMajors_RecyclerView.setLayoutManager(mMajorsRcVw_LayoutManager);
         mMajors_RecyclerView.setAdapter(mMajorsRcVw_Adapter);
     }
-    private void makeList()
+    private ArrayList<MajorInfoItem> makeSchoolsListFromJsonFileExtension()
     {
-        majorsRcVwItems_List = new ArrayList<>();
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
+        ArrayList<MajorInfoItem> majorInfoItems = new ArrayList<>();
+        FileExtension fileExtension = FileExtension.getInstance();
+        try {
+            JSONObject object = new JSONObject(fileExtension.readJSONFile(this,"fields.json"));
+            JSONArray fieldsArray = object.getJSONArray(getString(R.string.json_tag_data));
+            for (int i = 0; i < fieldsArray.length(); i++) {
 
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 3","Line 3 Sub"));
+                JSONObject jsonObject = fieldsArray.getJSONObject(i);
+                String majorName = jsonObject.getString(getString(R.string.json_tag_name));
+                String majorCategory = jsonObject.getString(getString(R.string.json_tag_category));
+                String majorIntroduction = jsonObject.getString(getString(R.string.json_tag_introduction));
 
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
+                MajorInfoItem majorInfoItem = new MajorInfoItem();
+                majorInfoItem.setMajorName(majorName);
+                majorInfoItem.setMajorCategory(majorCategory);
+                majorInfoItem.setMajorDescription(majorIntroduction);
 
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 1","Line 1 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Item 2","Line 2 Sub"));
-        majorsRcVwItems_List.add(new MajorsRcVwItem(R.drawable.icon2,"Line 3","Line 3 Sub"));
+                majorInfoItems.add(majorInfoItem);
 
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return majorInfoItems;
     }
 
 }

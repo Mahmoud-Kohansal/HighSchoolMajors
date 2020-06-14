@@ -32,7 +32,7 @@ public class SchoolsActivity extends AppCompatActivity implements SchoolFilterDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schools);
-        setTitle(getString(R.string.title_school_activity));
+        setTitle(getString(R.string.icon_caption_school));
         //Define view objects
         defineObjects();
         //Initialize

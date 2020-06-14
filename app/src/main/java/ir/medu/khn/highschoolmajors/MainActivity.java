@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void defineObjects()
     {
-        introduceFieldsCrdVw = (CardView) findViewById(R.id.introduceFields_CrdVw);
-        introduceSchoolsCrdVw = (CardView) findViewById(R.id.introduceSchools_CrdVw);
+        introduceFieldsCrdVw = (CardView) findViewById(R.id.introduceKarFields_CrdVw_Main);
+        introduceSchoolsCrdVw = (CardView) findViewById(R.id.introduceSchools_CrdVw_Main);
     }
     private void setObjectsListeners()
     {
